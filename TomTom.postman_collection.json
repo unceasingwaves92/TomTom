@@ -1,0 +1,447 @@
+{
+	"info": {
+		"_postman_id": "68891a3f-cc64-4669-a2c7-40bfea161542",
+		"name": "TomTom",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register admin key",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "de36e0ab-1a00-4776-958d-9c1c557ed94e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "query",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "key",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "OSXNWhAdFYDYlaQKlJOnyQOo9vIZoGR8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"secret\": \"secret_key\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.tomtom.com/geofencing/1/register",
+					"protocol": "https",
+					"host": [
+						"api",
+						"tomtom",
+						"com"
+					],
+					"path": [
+						"geofencing",
+						"1",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add new project using register admin key",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "73111263-1e41-4d78-ae46-f3ba325ccbe2",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "query",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "key",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "OSXNWhAdFYDYlaQKlJOnyQOo9vIZoGR8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"My project1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.tomtom.com/geofencing/1/projects/project?adminKey=Z34DNvr2py8gxQhVODEG4AYLnEkuj570TZ8jrIAE038wsu3Z",
+					"protocol": "https",
+					"host": [
+						"api",
+						"tomtom",
+						"com"
+					],
+					"path": [
+						"geofencing",
+						"1",
+						"projects",
+						"project"
+					],
+					"query": [
+						{
+							"key": "adminKey",
+							"value": "Z34DNvr2py8gxQhVODEG4AYLnEkuj570TZ8jrIAE038wsu3Z"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List projects and confirm the new project is available",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "40526d64-7f50-418d-8623-2104a7ac5ffc",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify project id contains\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.projects[0].id).to.eql(\"470fc00e-617d-4ebd-b577-2e59396be72a\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 400ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "query",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "key",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "OSXNWhAdFYDYlaQKlJOnyQOo9vIZoGR8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.tomtom.com/geofencing/1/projects",
+					"protocol": "https",
+					"host": [
+						"api",
+						"tomtom",
+						"com"
+					],
+					"path": [
+						"geofencing",
+						"1",
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Regenerate admin key",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "08d326d1-20f3-4ec5-a3f5-28de3ad99d34",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "query",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "key",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "OSXNWhAdFYDYlaQKlJOnyQOo9vIZoGR8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"secret\": \"secret_key\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.tomtom.com/geofencing/1/regenerateKey?key=OSXNWhAdFYDYlaQKlJOnyQOo9vIZoGR8",
+					"protocol": "https",
+					"host": [
+						"api",
+						"tomtom",
+						"com"
+					],
+					"path": [
+						"geofencing",
+						"1",
+						"regenerateKey"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "OSXNWhAdFYDYlaQKlJOnyQOo9vIZoGR8"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add new fence using the regenerated admin key",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1c8afa24-68c8-4eb1-853a-443509f33409",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "query",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "key",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "OSXNWhAdFYDYlaQKlJOnyQOo9vIZoGR8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"No-fly zone 23\",\r\n  \"type\": \"Feature\",\r\n  \"geometry\": {\r\n    \"radius\": 75,\r\n    \"type\": \"Point\",\r\n    \"shapeType\": \"Circle\",\r\n    \"coordinates\": [-67.137343, 45.137451]\r\n  },\r\n  \"properties\": {\r\n    \"maxSpeedKmh\": 70\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.tomtom.com/geofencing/1/projects/470fc00e-617d-4ebd-b577-2e59396be72a/fence?adminKey=Z34DNvr2py8gxQhVODEG4AYLnEkuj570TZ8jrIAE038wsu3Z",
+					"protocol": "https",
+					"host": [
+						"api",
+						"tomtom",
+						"com"
+					],
+					"path": [
+						"geofencing",
+						"1",
+						"projects",
+						"470fc00e-617d-4ebd-b577-2e59396be72a",
+						"fence"
+					],
+					"query": [
+						{
+							"key": "adminKey",
+							"value": "Z34DNvr2py8gxQhVODEG4AYLnEkuj570TZ8jrIAE038wsu3Z"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get fences transitions and check for the fence that is newly created",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "05508b06-dac0-4041-860c-a974a9a54043",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify fences id contains\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.fences[0].id).to.eql(\"2f601634-4821-4845-8b58-2cb046b90763\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "query",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "key",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "OSXNWhAdFYDYlaQKlJOnyQOo9vIZoGR8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.tomtom.com/geofencing/1/projects/470fc00e-617d-4ebd-b577-2e59396be72a/fences",
+					"protocol": "https",
+					"host": [
+						"api",
+						"tomtom",
+						"com"
+					],
+					"path": [
+						"geofencing",
+						"1",
+						"projects",
+						"470fc00e-617d-4ebd-b577-2e59396be72a",
+						"fences"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
